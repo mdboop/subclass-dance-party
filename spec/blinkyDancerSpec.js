@@ -28,7 +28,6 @@ describe("blinkyDancer", function() {
       clock.tick(timeBetweenSteps);
       
       expect(blinkyDancer.step.callCount).to.be.equal(1);
-      sinon.spy(blinkyDancer, "step");
       clock.tick(timeBetweenSteps);
       expect(blinkyDancer.step.callCount).to.be.equal(2);
     });

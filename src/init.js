@@ -28,12 +28,13 @@ $(document).ready(function(){
       Math.random() * 1000
     );
     $('body').append(dancer.$node);
+    window.dancers.push(dancer);
   });
 
   $('.lineUpDancersButton').on('click', function(event) {
     var currentWidth = 0;
-    var widthCalc = $('window').width() / window.dancers.length;
-    var height = $('window').height() / 2;
+    var widthCalc = $('body').width() / window.dancers.length;
+    var height = $('body').height() / 2;
     
     window.dancers.forEach(function(dancer) {
       dancer.setPosition(height, currentWidth);
