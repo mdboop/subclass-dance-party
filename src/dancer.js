@@ -6,12 +6,12 @@ var makeDancer = function(top, left, timeBetweenSteps){
 };
 
 
-makeDancer.prototype.step = function(stepKind, timeBetweenSteps){
+makeDancer.prototype.parentStep = function(stepKind, timeBetweenSteps){
     // the basic dancer doesn't do anything interesting at all on each step,
     // it just schedules the next step
-    console.log("The parent step was called!");
+    // console.log("The parent step was called!");
 
-    setTimeout(stepKind, timeBetweenSteps);
+    setInterval(stepKind, timeBetweenSteps);
   };
 
 
