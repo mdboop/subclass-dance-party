@@ -68,9 +68,8 @@ $(document).ready(function(){
     
       //loop through dancers, toggle class pair
       dancers.forEach(function(dancer){
-        dancer.$node.toggleClass('pair');
+        dancer.$node.removeClass('pair');
         dancer.$node.appendTo($('.container'));
-
         dancer.setPosition(
           ($(".container").height() - 200) * Math.random(),
           ($(".container").width() - 200) * Math.random());
@@ -84,14 +83,15 @@ $(document).ready(function(){
         }
         
       });
-      $('.pair').remove();
+
+
       $('.cowboy-hat').remove();
       $('.sad-face').remove();
+      $('.pair').remove();
       
-      
-
 
     } else {
+      //TURN ON THE HOEDOWN!
       $('body').toggleClass('marketStreet');
       $('body').toggleClass('danceHall');  
       
@@ -106,7 +106,7 @@ $(document).ready(function(){
         dancers[dancers.length - 1].sadCorner();
         //else, pair up dancers and set new position
        } else {
-        $('.dancer').toggleClass('pair');
+        $('.dancer').addClass('pair');
         //remove dancers from DOM
         var pairOne = dancers[i];
         var pairTwo = dancers[i + 1];
@@ -120,7 +120,6 @@ $(document).ready(function(){
         $div.append([pairOne.$node, pairTwo.$node]);
   
         //set their new position
-        console.log(pairOne);
         var randomHeight = ((($(".container").height() / 2) - 400) * Math.random()) + ($(".container").height() / 2);
         var randomWidth = ($(".container").width() - 400) * Math.random()
         pairOne.setPosition(randomHeight, randomWidth);
