@@ -55,7 +55,7 @@ $(document).ready(function(){
   });
 
   $('.countrifyButton').on('click', function(event) {
-
+    //if in a country state, go back to Market Street.
     if($('body').hasClass('danceHall')) {
       $('body').toggleClass('marketStreet');
       $('body').toggleClass('danceHall');  
@@ -70,13 +70,26 @@ $(document).ready(function(){
       dancers.forEach(function(dancer){
         dancer.$node.toggleClass('pair');
         dancer.$node.appendTo($('.container'));
+
         dancer.setPosition(
           ($(".container").height() - 200) * Math.random(),
           ($(".container").width() - 200) * Math.random());
-        //take off cowboy HAT
+        //un-sad :)
+        if(dancer.$node.hasClass('sad-face')){
+          if(dancer.$node.hasClass('spinnyDancer')){
+            dancer.$node.toggleClass('spinnyDance');
+          } else {
+            dancer.$node.toggleClass('circleDance');
+          }
+        }
+        
       });
       $('.pair').remove();
       $('.cowboy-hat').remove();
+      $('.sad-face').remove();
+      
+      
+
 
     } else {
       $('body').toggleClass('marketStreet');

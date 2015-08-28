@@ -38,7 +38,18 @@ makeDancer.prototype.setPosition = function(top, left){
     //add cowboy hat
   };
   makeDancer.prototype.sadCorner = function() {
-    var left = $('.container').width(); 
+    this.$node.append($('<img class="sad-face" src="assets/sad-face.gif">'));
+    if(this.$node.hasClass('spinnyDancer')){
+      var styleSettings = {
+        top: 35
+      }
+      $('.sad-face').css(styleSettings);
+      this.$node.toggleClass('spinnyDance');
+    } else {
+      this.$node.toggleClass('circleDance');
+    }
+    var left = $('.container').width() - 200; 
     var top = $('.container').height() / 2;
     this.setPosition(top, left);
+
   };
