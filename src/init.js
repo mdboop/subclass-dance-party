@@ -57,6 +57,15 @@ $(document).ready(function(){
   $('.countrifyButton').on('click', function(event) {
     $('body').toggleClass('marketStreet');
     $('body').toggleClass('danceHall');  
+    if($('audio').hasClass('audio-off')) {
+      $('audio').toggleClass('audio-off');
+      $('audio').play();
+    } else {
+      $('audio').pause();
+      $('audio').currentTime = 0;
+      $('audio').toggleClass('audio-off');
+    }
+
 
 
     for(var i = 0; i < dancers.length - 1; i += 2) {
