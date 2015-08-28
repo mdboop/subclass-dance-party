@@ -24,8 +24,8 @@ $(document).ready(function(){
     // make a dancer with a random position
 
     var dancer = new dancerMakerFunction(
-      $(".container").height() * Math.random(),
-      $(".container").width() * Math.random(),
+      ($(".container").height() - 200) * Math.random(),
+      ($(".container").width() - 200) * Math.random(),
       Math.random() * 1000
     );
     $('.container').append(dancer.$node);
@@ -55,46 +55,65 @@ $(document).ready(function(){
   });
 
   $('.countrifyButton').on('click', function(event) {
-    $('body').toggleClass('marketStreet');
-    $('body').toggleClass('danceHall');  
-    if($('audio').hasClass('audio-off')) {
-      $('audio').toggleClass('audio-off');
-      $('audio').play();
+
+    if($('body').hasClass('danceHall')) {
+      $('body').toggleClass('marketStreet');
+      $('body').toggleClass('danceHall');  
+      
+      //Turn off Garth
+      $(".audio-on").get(0).pause();
+      $(".audio-on").get(0).currentTime = 0;
+      $('audio').removeClass('audio-on');
+      $('audio').addClass('audio-off');
+    
+      //loop through dancers, toggle class pair
+      dancers.forEach(function(dancer){
+        dancer.$node.toggleClass('pair');
+        dancer.$node.appendTo($('.container'));
+        dancer.setPosition(
+          ($(".container").height() - 200) * Math.random(),
+          ($(".container").width() - 200) * Math.random());
+        //take off cowboy HAT
+      });
+      $('.pair').remove();
+      $('.cowboy-hat').remove();
+
     } else {
-      $('audio').pause();
-      $('audio').currentTime = 0;
-      $('audio').toggleClass('audio-off');
-    }
-
-
-
-    for(var i = 0; i < dancers.length - 1; i += 2) {
-      //if odd dancer out, send him to the corner
-     if(dancers.length % 2 === 1 && i === 0) {
-      dancers[0].sadCorner();
-      //else, pair up dancers and set new position
-     } else {
-      $('.dancer').toggleClass('pair');
-      //remove dancers from DOM
-      var pairOne = dancers[i];
-      var pairTwo = dancers[i + 1];
-      //create new container div
-      var $div = $('<div></div>').attr('id', "pair" + i);
-      //add div to container div
-      $('.container').append($div);
-      //add dancer pair to div
-      $div.append([pairOne.$node, pairTwo.$node]);
-
-      //set their new position
-      console.log(pairOne);
-      var randomHeight = (($(".container").height() / 2) * Math.random()) + ($(".container").height() / 2);
-      var randomWidth = $(".container").width() * Math.random()
-      pairOne.setPosition(randomHeight, randomWidth);
-      pairTwo.setPosition(randomHeight + 50, randomWidth + 50);      
-     }
-
-
-
+      $('body').toggleClass('marketStreet');
+      $('body').toggleClass('danceHall');  
+      
+      //Play Garth Brooks - Friends in low places
+      $(".audio-off").get(0).play();
+      $('audio').removeClass('audio-off');
+      $('audio').addClass('audio-on');
+  
+      for(var i = 0; i < dancers.length; i += 2) {
+        //if odd dancer out, send him to the corner
+       if(dancers.length % 2 === 1 && i === dancers.length - 1) {
+        dancers[dancers.length - 1].sadCorner();
+        //else, pair up dancers and set new position
+       } else {
+        $('.dancer').toggleClass('pair');
+        //remove dancers from DOM
+        var pairOne = dancers[i];
+        var pairTwo = dancers[i + 1];
+        pairOne.$node.append($('<img class="cowboy-hat" src="assets/hat.gif">'));
+        pairTwo.$node.append($('<img class="cowboy-hat" src="assets/hat.gif">'));
+        //create new container div
+        var $div = $('<div></div>').addClass('pair');
+        //add div to container div
+        $('.container').append($div);
+        //add dancer pair to div
+        $div.append([pairOne.$node, pairTwo.$node]);
+  
+        //set their new position
+        console.log(pairOne);
+        var randomHeight = ((($(".container").height() / 2) - 400) * Math.random()) + ($(".container").height() / 2);
+        var randomWidth = ($(".container").width() - 400) * Math.random()
+        pairOne.setPosition(randomHeight, randomWidth);
+        pairTwo.setPosition(randomHeight + 50, randomWidth + 50);      
+       }
+      }
     }
   });
 

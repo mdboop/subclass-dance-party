@@ -53,6 +53,10 @@ body, a:link, a:visited, a:active{
 .spinnyDancer {
   height: 240px;
   position: absolute;
+  
+}
+
+.spinnyDance{
   -webkit-animation: shark 1.7s infinite alternate;
 }
 
@@ -74,7 +78,7 @@ body, a:link, a:visited, a:active{
   position:absolute; 
 }
 
-.circleDancer {
+.circleDance {
   -webkit-animation: circleDancer 5s linear infinite; 
   animation: circleDancer 5s linear infinite; 
 }
@@ -110,4 +114,12 @@ body, a:link, a:visited, a:active{
 @-webkit-keyframes specialSpin { 
   0% {  -webkit-transform: rotate(0deg); }
   100%   {  -webkit-transform: rotate(360deg); }
+}
+
+.cowboy-hat {
+  position: relative;
+  left: 80px;
+  top: -20px;
+  height: 80px;
+  width: 80px;
 }
