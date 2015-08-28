@@ -1,5 +1,6 @@
 $(document).ready(function(){
   window.dancers = [];
+  $('body').toggleClass('marketStreet');
 
   $(".addDancerButton").on("click", function(event){
     /* This function sets up the click handlers for the create-dancer
@@ -23,24 +24,71 @@ $(document).ready(function(){
     // make a dancer with a random position
 
     var dancer = new dancerMakerFunction(
-      $("body").height() * Math.random(),
-      $("body").width() * Math.random(),
+      $(".container").height() * Math.random(),
+      $(".container").width() * Math.random(),
       Math.random() * 1000
     );
-    $('body').append(dancer.$node);
+    $('.container').append(dancer.$node);
     window.dancers.push(dancer);
   });
 
   $('.lineUpDancersButton').on('click', function(event) {
-    var currentWidth = 0;
-    var widthCalc = $('body').width() / window.dancers.length;
-    var height = $('body').height() / 2;
+    event.preventDefault();
+    var spinnyHeight = $('.container').height() / 3;
+    var circleHeight = spinnyHeight * 2;
+    var spinnyWidth = $('.container').width() / $('img.spinnyDancer').length;
+    var circleWidth = $('.container').width() / $('img.circleDancer').length;
+    var circleInterval = 0;
+    var spinnyInterval = 0;
     
     window.dancers.forEach(function(dancer) {
-      dancer.setPosition(height, currentWidth);
-      currentWidth += widthCalc;
+      if(dancer.$node.hasClass('spinnyDancer')) {
+        dancer.lineUp(spinnyHeight, spinnyInterval);
+        spinnyInterval += spinnyWidth;
+      }
+      if(dancer.$node.hasClass('circleDancer')) {
+        dancer.lineUp(circleHeight, circleInterval);
+        circleInterval += circleWidth;
+      }
+
     });
   });
+
+  $('.countrifyButton').on('click', function(event) {
+    $('body').toggleClass('marketStreet');
+    $('body').toggleClass('danceHall');  
+
+
+    for(var i = 0; i < dancers.length - 1; i += 2) {
+      //if odd dancer out, send him to the corner
+     if(dancers.length % 2 === 1 && i === 0) {
+      dancers[0].sadCorner();
+      //else, pair up dancers and set new position
+     } else {
+      $('.dancer').toggleClass('pair');
+      //remove dancers from DOM
+      var pairOne = dancers[i];
+      var pairTwo = dancers[i + 1];
+      //create new container div
+      var $div = $('<div></div>').attr('id', "pair" + i);
+      //add div to container div
+      $('.container').append($div);
+      //add dancer pair to div
+      $div.append([pairOne.$node, pairTwo.$node]);
+
+      //set their new position
+      console.log(pairOne);
+      var randomHeight = (($(".container").height() / 2) * Math.random()) + ($(".container").height() / 2);
+      var randomWidth = $(".container").width() * Math.random()
+      pairOne.setPosition(randomHeight, randomWidth);
+      pairTwo.setPosition(randomHeight + 50, randomWidth + 50);      
+     }
+
+
+
+    }
+  });
+
 
 });
 

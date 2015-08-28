@@ -1,20 +1,18 @@
-var makeBlinkyDancer = function(top, left, timeBetweenSteps){
+var makeRandomDancer = function(top, left, timeBetweenSteps){
   makeDancer.apply(this, arguments);
   this.timeBetweenSteps = timeBetweenSteps;
-  this.$node.addClass("blinkyDancer");
+  this.$node.addClass("randomDancer");
   // we plan to overwrite the step function below, but we still want the superclass step behavior to work,
   // so we must keep a copy of the old version of this function
   //debugger;
-  this.setPosition(top, left);
-  this.parentStep(this.step.bind(this), this.timeBetweenSteps);
   
 };
 
-makeBlinkyDancer.prototype = Object.create(makeDancer.prototype);
-makeBlinkyDancer.prototype.constructor = makeBlinkyDancer;
+makeRandomDancer.prototype = Object.create(makeDancer.prototype);
+makeRandomDancer.prototype.constructor = makeRandomDancer;
 
-makeBlinkyDancer.prototype.step = function() {
-
+makeRandomDancer.prototype.step = function() {
+  
   // console.log("I am blinkyDancer step function");
   this.$node.toggle();  
 };
